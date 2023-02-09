@@ -1,0 +1,42 @@
+[
+  {
+    "model": "playeroneapi.videogame",
+    "pk": 1,
+    "fields": {
+      "user": 4,  
+      "game_title": "Medal of Honor",
+      "game_genre" : 6,
+      "purchase_location" : "EB Games", 
+      "game_format": "Hard Copy",
+      "description" : "This EA classic...",
+      "imageURL" : ""
+    
+    }
+},
+{
+    "model": "playeroneapi.videogame",
+    "pk": 2,
+    "fields": {
+      "user": 3,  
+      "game_title": "Animal Crossing",
+      "game_genre" : 7,
+      "purchase_location" : "FYE", 
+      "game_format": "Hard Copy",
+      "description" : "I spend hours on this game...",
+      "imageURL" : ""
+    }
+},
+{
+    "model": "playeroneapi.videogame",
+    "pk": 3,
+    "fields": {
+      "user": 2,  
+      "game_title": "Metal Gear Solid",
+      "game_genre" : 3,
+      "purchase_location" : "Steam", 
+      "game_format": "Streaming",
+      "description" : "Do you know how long it too me to...",
+      "imageURL" : ""
+    }
+}
+]

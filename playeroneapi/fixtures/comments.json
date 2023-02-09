@@ -1,0 +1,35 @@
+[
+  {
+      "model": "playeroneapi.comment",
+      "pk": 1,
+      "fields": {
+          "user": 1,
+          "game" : 3,
+          "comment_title" : "This is the one..",
+          "comment": "This game is amazing!",
+          "date_created" : "2022-06-22"
+      }
+  },
+  {
+      "model": "playeroneapi.comment",
+      "pk": 2,
+      "fields": {
+        "user": 2,
+          "game" : 2,
+          "comment_title" : "Ummm..",
+          "comment": "Idk about this one",
+          "date_created" : "2021-09-22"
+      }
+  },
+  {
+      "model": "playeroneapi.comment",
+      "pk": 3,
+      "fields": {
+        "user": 3,
+          "game" : 2,
+          "comment_title" : "Same...",
+          "comment": "Same as the other comment, this one was not it",
+          "date_created" : "2021-09-25"
+      }
+  }
+]
