@@ -1,0 +1,51 @@
+[
+  {
+      "model": "playeroneapi.gamegenre",
+      "pk": 1,
+      "fields": {
+          "game_genre_name": "RPG"
+      }
+  },
+  {
+      "model": "playeroneapi.gamegenre",
+      "pk": 2,
+      "fields": {
+          "game_genre_name": "Indie"
+      }
+  },
+  {
+      "model": "playeroneapi.gamegenre",
+      "pk": 3,
+      "fields": {
+          "game_genre_name": "Action"
+      }
+  },
+  {
+    "model": "playeroneapi.gamegenre",
+    "pk": 4,
+    "fields": {
+        "game_genre_name": "Sports"
+    }
+},
+{
+  "model": "playeroneapi.gamegenre",
+  "pk": 5,
+  "fields": {
+      "game_genre_name": "Racing"
+  }
+},
+{
+  "model": "playeroneapi.gamegenre",
+  "pk": 6,
+  "fields": {
+      "game_genre_name": "FPS"
+  }
+},
+{
+  "model": "playeroneapi.gamegenre",
+  "pk": 7,
+  "fields": {
+      "game_genre_name": "Sandbox"
+  }
+}
+]

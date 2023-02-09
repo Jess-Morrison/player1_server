@@ -1,0 +1,42 @@
+[
+  {
+      "model": "playeroneapi.reaction",
+      "pk": 1,
+      "fields": {
+          "reaction_name": "Laughing",
+          "image_url": "https://a.slack-edge.com/production-standard-emoji-assets/14.0/apple-medium/1f606.png"
+      }
+  },
+  {
+      "model": "playeroneapi.reaction",
+      "pk": 2,
+      "fields": {
+        "reaction_name": "Thumbs-Down",
+        "image_url": "https://a.slack-edge.com/production-standard-emoji-assets/14.0/apple-medium/1f44e-1f3fc.png"
+      }
+  },
+  {
+      "model": "playeroneapi.reaction",
+      "pk": 3,
+      "fields": {
+        "reaction_name": "Crying",
+        "image_url": "https://a.slack-edge.com/production-standard-emoji-assets/14.0/apple-medium/1f622.png"
+      }
+  },
+  {
+    "model": "playeroneapi.reaction",
+    "pk": 4,
+    "fields": {
+      "reaction_name": "Thumbs-Up",
+      "image_url": "https://emoji.slack-edge.com/T03F2SDTJ/thumbsup_all/50096a1020.png"
+    }
+},
+{
+  "model": "playeroneapi.reaction",
+  "pk": 5,
+  "fields": {
+    "reaction_name": "Love",
+    "image_url": "https://a.slack-edge.com/production-standard-emoji-assets/14.0/apple-medium/2764-fe0f.png"
+  }
+}
+]

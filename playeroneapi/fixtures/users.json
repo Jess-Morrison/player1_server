@@ -1,0 +1,55 @@
+[
+ 
+  {
+      "model": "playeroneapi.user",
+      "pk": 1,
+      "fields": {
+          "first_name": "Christian",
+          "last_name": "Black",
+          "uid": "nasE7lu5XPPSH1a9URiFepuRenG2",
+          "about_me": "A comprehensive Bio",
+          "user_name": "",
+          "tag_line": "",
+          "image_url": ""
+      }
+  },
+  {
+      "model": "playeroneapi.user",
+      "pk": 2,
+      "fields": {
+          "first_name": "Krima",
+          "last_name": "Patel",
+          "uid": "mO4cP240G0OaMAgKGEexnAJdkvy2",
+          "about_me": "A comprehensive Bio",
+          "user_name": "",
+          "tag_line": "",
+          "image_url": ""
+      }
+  },
+  {
+      "model": "playeroneapi.user",
+      "pk": 3,
+      "fields": {
+          "first_name": "Keaton",
+          "last_name": "Law",
+          "uid": "nV3phfnhfMceRtkpCgWFQZJHNiu1",
+          "about_me": "A comprehensive Bio",
+          "user_name": "",
+          "tag_line": "",
+          "image_url": ""
+      }
+  }, 
+  {
+      "model": "playeroneapi.user",
+      "pk": 4,
+      "fields": {
+          "first_name": "Stumple",
+          "last_name": "Beans",
+          "uid": "JRbbQ0g7RXPJcBoNpQXTR418EaT2",
+          "about_me": "Stumple is an American economist and the Charles R. Walgreen Distinguished Service Professor of Behavioral Science and Economics at the University of Chicago Booth School of Business. ",
+          "user_name": "",
+          "tag_line": "",
+          "image_url": ""
+      }
+  }
+]
