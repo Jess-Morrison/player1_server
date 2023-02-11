@@ -20,7 +20,7 @@ from rest_framework import routers
 
 # Add this once you're ready to create users
 # from playeroneapi.views import register_user, check_user, CommentView, CommentReactionView, VideoGameView, ReactionView
-from playeroneapi.views import VideoGameView, CommentView, ReactionView
+from playeroneapi.views import VideoGameView, CommentView, ReactionView, CommentReactionView
 # from playeroneapi.views import CommentReactionView, VideoGameView, ReactionView
 
 
@@ -29,7 +29,7 @@ router.register(r'videogames', VideoGameView, 'videogames')
 router.register(r'comments', CommentView, 'comments')
 router.register(r'reactions', ReactionView, 'reactions')
 # router.register(r'comments', ReactionView, 'comments')
-# router.register(r'commentreactions', CommentReactionView, 'commentreactions')
+router.register(r'commentreactions', CommentReactionView, 'commentreactions')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
