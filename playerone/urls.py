@@ -17,18 +17,20 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
 from rest_framework import routers
-from django.contrib import admin
-from django.urls import path
+
 # Add this once you're ready to create users
 # from playeroneapi.views import register_user, check_user, CommentView, CommentReactionView, VideoGameView, ReactionView
-from playeroneapi.views import CommentReactionView, VideoGameView, ReactionView
+from playeroneapi.views import VideoGameView
+# from playeroneapi.views import CommentReactionView, VideoGameView, ReactionView
+
 
 router = routers.DefaultRouter(trailing_slash=False)
-router.register(r'videogames', VideoGameView, 'videogame')
-router.register(r'reactions', ReactionView, 'reaction')
-router.register(r'comments', ReactionView, 'comment')
-router.register(r'commentreactions', CommentReactionView, 'commentreaction')
+router.register(r'videogames', VideoGameView, 'videogames')
+# router.register(r'reactions', ReactionView, 'reactions')
+# router.register(r'comments', ReactionView, 'comments')
+# router.register(r'commentreactions', CommentReactionView, 'commentreactions')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include(router.urls))
 ]
