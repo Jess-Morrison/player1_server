@@ -36,10 +36,10 @@ class VideoGameView(ViewSet):
         Returns
             Response -- JSON serialized game instance
         """
-        # user = User.objects.get(pk=request.data["user"])
+        user = User.objects.get(pk=request.data["userId"])
         # why did I have to change this to uid?
         # This should probably be pk instead of uid, you are trying to grab the pk
-        # game_genre = GameGenre.objects.get(pk=request.data["game_genre"])
+        game_genre = GameGenre.objects.get(pk=request.data["gameGenre"])
 
         video_game = VideoGame.objects.create(
         game_title=request.data["gameTitle"],
@@ -47,9 +47,9 @@ class VideoGameView(ViewSet):
         game_format=request.data["gameFormat"],
         description=request.data["description"],
         image_url=request.data["imageUrl"],
-        game_genre=request.data["gameGenre"],
-        # user=user,
-        # game_genre=game_genre
+        # game_genre=request.data["gameGenre"],
+        user=user,
+        game_genre=game_genre
         )
         serializer = VideoGameSerializer(video_game)
         return Response(serializer.data)
