@@ -3,10 +3,10 @@ from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
-from playeroneapi.models import Reaction
+from playeroneapi.models import GameGenre
 
 
-class ReactionView(ViewSet):
+class GameGenreView(ViewSet):
     """Level up game types view"""
 
     def retrieve(self, request, pk):
@@ -15,8 +15,8 @@ class ReactionView(ViewSet):
         Returns:
             Response -- JSON serialized game type
         """
-        reaction = Reaction.objects.get(pk=pk)
-        serializer = ReactionSerializer(reaction)
+        game_genre = GameGenre.objects.get(pk=pk)
+        serializer = GameGenreSerializer(game_genre)
         return Response(serializer.data)
 
     def list(self, request):
@@ -25,8 +25,8 @@ class ReactionView(ViewSet):
         Returns:
             Response -- JSON serialized list of game types
         """
-        reactions = Reaction.objects.all()  
-        serializer = ReactionSerializer(reactions, many = True)
+        game_genres = GameGenre.objects.all()  
+        serializer = GameGenreSerializer(game_genres, many = True)
         return Response(serializer.data)
       
       # I dont think the destroy and update is needed 
@@ -58,10 +58,10 @@ class ReactionView(ViewSet):
     #     game.delete()
     #     return Response(None, status=status.HTTP_204_NO_CONTENT)
     
-class ReactionSerializer(serializers.ModelSerializer):
+class GameGenreSerializer(serializers.ModelSerializer):
     """JSON serializer for game types
     """
     class Meta:
-        model = Reaction
-        fields = ('id', 'reaction_name', 'image_url') 
+        model = GameGenre
+        fields = ('id','game_genre_name') 
         depth = 1     

@@ -3,7 +3,7 @@ from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
-from playeroneapi.models import Game, Gamer, GameType
+from playeroneapi.models import VideoGame, User, GameGenre
 
 
 class VideoGameView(ViewSet):
@@ -15,8 +15,8 @@ class VideoGameView(ViewSet):
         Returns:
             Response -- JSON serialized game type
         """
-        game = Game.objects.get(pk=pk)
-        serializer = GameSerializer(game)
+        video_game = VideoGame.objects.get(pk=pk)
+        serializer = VideoGameSerializer(video_game)
         return Response(serializer.data)
 
     def list(self, request):
@@ -25,11 +25,9 @@ class VideoGameView(ViewSet):
         Returns:
             Response -- JSON serialized list of game types
         """
-        games = Game.objects.all()
-        game_type = request.query_params.get('type', None)
-        if game_type is not None:
-          games = games.filter(game_type_id=game_type)  
-        serializer = GameSerializer(games, many = True)
+        video_games = VideoGame.objects.all()
+  
+        serializer = VideoGameSerializer(video_games, many = True)
         return Response(serializer.data)
       
     def create(self, request):
@@ -38,20 +36,37 @@ class VideoGameView(ViewSet):
         Returns
             Response -- JSON serialized game instance
         """
-        gamer = Gamer.objects.get(uid=request.data["user_id"])
+        user = User.objects.get(pk=request.data["userId"])
         # why did I have to change this to uid?
         # This should probably be pk instead of uid, you are trying to grab the pk
-        game_type = GameType.objects.get(pk=request.data["game_type"])
+        game_genre = GameGenre.objects.get(pk=request.data["gameGenre"])
 
-        game = Game.objects.create(
-        title=request.data["title"],
-        maker=request.data["maker"],
-        number_of_players=request.data["number_of_players"],
-        skill_level=request.data["skill_level"],
-        gamer=gamer,
-        game_type=game_type
+        video_game = VideoGame.objects.create(
+        game_title=request.data["gameTitle"],
+        purchase_location=request.data["purchaseLocation"],
+        game_format=request.data["gameFormat"],
+        description=request.data["description"],
+        image_url=request.data["imageUrl"],
+        # game_genre=request.data["gameGenre"],
+        user=user,
+        game_genre=game_genre
         )
-        serializer = GameSerializer(game)
+        # user = User.objects.get(pk=request.data["userId"])
+        # # why did I have to change this to uid?
+        # # This should probably be pk instead of uid, you are trying to grab the pk
+        # game_genre = GameGenre.objects.get(pk=request.data["game_genre"])
+
+        # video_game = VideoGame.objects.create(
+        # game_title=request.data["game_title"],
+        # purchase_location=request.data["purchase_location"],
+        # game_format=request.data["game_format"],
+        # description=request.data["description"],
+        # image_url=request.data["image_url"],
+        # # game_genre=request.data["gameGenre"],
+        # user=user,
+        # game_genre=game_genre
+        # )
+        serializer = VideoGameSerializer(video_game)
         return Response(serializer.data)
     
     def update(self, request, pk):
@@ -61,27 +76,33 @@ class VideoGameView(ViewSet):
             Response -- Empty body with 204 status code
         """
 
-        game = Game.objects.get(pk=pk)
-        game.title = request.data["title"]
-        game.maker = request.data["maker"]
-        game.number_of_players = request.data["number_of_players"]
-        game.skill_level = request.data["skill_level"]
+        video_game = VideoGame.objects.get(pk=pk)
+        # This code is setting the value of a property called game_title on an object called video_game.
+        # request.data is a dictionary-like object that contains a key "gameTitle" (case-sensitive) and that the corresponding value is a string representing the title of a video game.
+        # By using the dot notation (video_game.game_title), the code is setting the game_title property on the video_game object to the value of request.data["gameTitle"].
+        video_game.game_title = request.data["gameTitle"]
+        video_game.purchase_location = request.data["purchaseLocation"]
+        video_game.game_format = request.data["gameFormat"]
+        video_game.description = request.data["description"]
+        video_game.image_url = request.data["imageUrl"]
 
-        game_type = GameType.objects.get(pk=request.data["game_type"])
-        game.game_type = game_type
-        game.save()
+        # So if the primary key from game genre matches the game_genre
+        # in video games object
+        game_genre = GameGenre.objects.get(pk=request.data["gameGenre"])
+        video_game.game_genre = game_genre
+        video_game.save()
 
         return Response(None, status=status.HTTP_204_NO_CONTENT) 
     
     def destroy(self, request, pk):
-        game = Game.objects.get(pk=pk)
-        game.delete()
+        video_game = VideoGame.objects.get(pk=pk)
+        video_game.delete()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
     
-class GameSerializer(serializers.ModelSerializer):
+class VideoGameSerializer(serializers.ModelSerializer):
     """JSON serializer for game types
     """
     class Meta:
-        model = Game
-        fields = ('id', 'title', 'maker', 'gamer', 'number_of_players', 'skill_level', 'game_type') 
+        model = VideoGame
+        fields = ('id', 'user', 'game_genre', 'game_title', 'purchase_location', 'game_format', 'description', 'image_url') 
         depth = 1     
