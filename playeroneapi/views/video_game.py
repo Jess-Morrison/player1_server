@@ -51,6 +51,21 @@ class VideoGameView(ViewSet):
         user=user,
         game_genre=game_genre
         )
+        # user = User.objects.get(pk=request.data["userId"])
+        # # why did I have to change this to uid?
+        # # This should probably be pk instead of uid, you are trying to grab the pk
+        # game_genre = GameGenre.objects.get(pk=request.data["game_genre"])
+
+        # video_game = VideoGame.objects.create(
+        # game_title=request.data["game_title"],
+        # purchase_location=request.data["purchase_location"],
+        # game_format=request.data["game_format"],
+        # description=request.data["description"],
+        # image_url=request.data["image_url"],
+        # # game_genre=request.data["gameGenre"],
+        # user=user,
+        # game_genre=game_genre
+        # )
         serializer = VideoGameSerializer(video_game)
         return Response(serializer.data)
     
@@ -62,15 +77,18 @@ class VideoGameView(ViewSet):
         """
 
         video_game = VideoGame.objects.get(pk=pk)
-        video_game.game_title = request.data["game_title"]
-        video_game.purchase_location = request.data["purchase_location"]
-        video_game.game_format = request.data["game_format"]
+        # This code is setting the value of a property called game_title on an object called video_game.
+        # request.data is a dictionary-like object that contains a key "gameTitle" (case-sensitive) and that the corresponding value is a string representing the title of a video game.
+        # By using the dot notation (video_game.game_title), the code is setting the game_title property on the video_game object to the value of request.data["gameTitle"].
+        video_game.game_title = request.data["gameTitle"]
+        video_game.purchase_location = request.data["purchaseLocation"]
+        video_game.game_format = request.data["gameFormat"]
         video_game.description = request.data["description"]
-        video_game.image_url = request.data["image_url"]
+        video_game.image_url = request.data["imageUrl"]
 
         # So if the primary key from game genre matches the game_genre
         # in video games object
-        game_genre = GameGenre.objects.get(pk=request.data["game_genre"])
+        game_genre = GameGenre.objects.get(pk=request.data["gameGenre"])
         video_game.game_genre = game_genre
         video_game.save()
 
