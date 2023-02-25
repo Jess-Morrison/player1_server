@@ -4,6 +4,8 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
 from playeroneapi.models import VideoGame, User, Reaction, Comment
+from rest_framework import generics
+
 
 
 
@@ -18,6 +20,7 @@ class CommentView(ViewSet):
         """
         comment = Comment.objects.get(pk=pk)
         serializer = CommentSerializer(comment)
+
         return Response(serializer.data)
 
     def list(self, request):
@@ -27,6 +30,11 @@ class CommentView(ViewSet):
             Response -- JSON serialized list of game types
         """
         comments = Comment.objects.all()  
+        
+        game_id = request.query_params.get('game_id', None)
+        if game_id is not None:
+                comments = comments.filter(game_id = game_id)
+        
         serializer = CommentSerializer(comments, many = True)
         return Response(serializer.data)
       
@@ -83,4 +91,16 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = ('id', 'user', 'game', 'reactions', 'comment_title', 'comment', 'date_created') 
-        depth = 1     
+        depth = 1 
+
+class VideoGameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = VideoGame
+        fields = ('id', 'user', 'game_genre', 'game_title', 'purchase_location', 'game_format', 'description', 'image_url') 
+        depth = 1             
+
+class CommentGameView(generics.ListCreateAPIView):
+    serializer_class = CommentSerializer
+    def get_queryset(self):
+      game = self.kwargs['game_id']
+      return Comment.objects.filter(game__id=game) 
