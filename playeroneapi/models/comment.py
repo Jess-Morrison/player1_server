@@ -7,4 +7,5 @@ class Comment(models.Model):
   reactions= models.ManyToManyField("Reaction", through="CommentReaction", related_name="comment")
   comment_title = models.CharField(max_length=50)
   comment = models.CharField(max_length=50)
-  date_created = models.DateField()
+  # date_created = models.DateField()
+  date_created = models.CharField(max_length=50)

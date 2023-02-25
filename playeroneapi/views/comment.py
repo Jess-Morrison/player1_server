@@ -44,7 +44,7 @@ class CommentView(ViewSet):
         Returns
             Response -- JSON serialized game instance
         """
-        user = User.objects.get(pk=request.data["user"])
+        user = User.objects.get(pk=request.data["userId"])
         game = VideoGame.objects.get(pk=request.data["game"])
         # reactions = Reaction.objects.get(pk=request.data["reactions"])
 
