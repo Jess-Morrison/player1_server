@@ -24,6 +24,22 @@ class CommentReactionView(ViewSet):
     comment_reaction.save()
     return Response({'success': True}, status=status.HTTP_202_ACCEPTED)
   
+  def create(self, request):
+        '''handels POST PR requests'''
+        comment = Comment.objects.get(pk=request.data['comment'])
+        reaction = Reaction.objects.get(pk=request.data['reaction'])
+        user = User.objects.get(pk=request.data['user'])
+        
+        comment_reaction = CommentReaction.objects.create(
+          comment_id = comment,
+          reaction_id = reaction,
+          user_id = user
+        )
+        
+        serializer = CommentReactionSerializer(comment_reaction)
+        
+        return Response(serializer.data)
+  
   def destroy(self, request, pk):
     """Delete a productOrder"""
     comment_reaction = CommentReaction.objects.get(pk=pk)
