@@ -3,7 +3,7 @@ from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
-from playeroneapi.models import Reaction
+from playeroneapi.models import Reaction, CommentReaction
 
 
 class ReactionView(ViewSet):
@@ -26,12 +26,43 @@ class ReactionView(ViewSet):
             Response -- JSON serialized list of game types
         """
         reactions = Reaction.objects.all()  
+        
+        user_id = request.query_params.get('userId', None)
+        comment_id = request.query_params.get('commentId', None)
+      
+        
+        if user_id and comment_id is not None:
+            for reaction in reactions:
+                id = reaction.id
+                reaction.clicked = len(CommentReaction.objects.filter(user_id = user_id, comment_id = comment_id, reaction_id = id)) > 0
+                reaction.count = len(CommentReaction.objects.filter(reaction_id = id, comment_id = comment_id))
+        
+        
         serializer = ReactionSerializer(reactions, many = True)
         return Response(serializer.data)
       
       # I dont think the destroy and update is needed 
       # May want to create an add remove 
       # decorator 
+      
+       
+    def create(self, request): 
+      '''handels create reaction'''
+      reaction = Reaction.objects.create(
+        reaction_name = request.data['reaction_name'],
+        image_url = request.data['image_url']
+      )
+      serializer = ReactionSerializer(reaction)
+      react_serialized = serializer.data
+      react_serialized['image_url'] = react_serialized.pop('image_url')
+      
+      return Response(react_serialized)
+    
+    def destroy(self, request, pk):
+      '''Handels Delete Request for Reactions'''
+      reaction = Reaction.objects.get(pk=pk)
+      reaction.delete()
+      return Response(None, status=status.HTTP_204_NO_CONTENT)
       
     
     # def update(self, request, pk):
@@ -63,5 +94,5 @@ class ReactionSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = Reaction
-        fields = ('id', 'reaction_name', 'image_url') 
+        fields = ('id', 'reaction_name', 'image_url', 'clicked', 'count') 
         depth = 1     

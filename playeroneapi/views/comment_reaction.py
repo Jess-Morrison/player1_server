@@ -18,17 +18,17 @@ class CommentReactionView(ViewSet):
   def update(self, request, pk):
     """Update a productOrder"""
     comment_reaction = CommentReaction.objects.get(pk=pk)
-    comment_reaction.user = User.objects.get(pk=request.data["user"])
-    comment_reaction.comment = Comment.objects.get(pk=request.data['comment'])
-    comment_reaction.reaction = Reaction.objects.get(pk=request.data['reaction'])
+    comment_reaction.user = User.objects.get(pk=request.data["userId"])
+    comment_reaction.comment = Comment.objects.get(pk=request.data['commentId'])
+    comment_reaction.reaction = Reaction.objects.get(pk=request.data['reactionId'])
     comment_reaction.save()
     return Response({'success': True}, status=status.HTTP_202_ACCEPTED)
   
   def create(self, request):
         '''handels POST PR requests'''
-        comment = Comment.objects.get(pk=request.data['comment'])
-        reaction = Reaction.objects.get(pk=request.data['reaction'])
-        user = User.objects.get(pk=request.data['user'])
+        comment = Comment.objects.get(pk=request.data['commentId'])
+        reaction = Reaction.objects.get(pk=request.data['reactionId'])
+        user = User.objects.get(pk=request.data['userId'])
         
         comment_reaction = CommentReaction.objects.create(
           comment_id = comment,
