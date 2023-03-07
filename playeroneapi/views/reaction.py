@@ -27,8 +27,8 @@ class ReactionView(ViewSet):
         """
         reactions = Reaction.objects.all()  
         
-        user_id = request.query_params.get('userId', None)
-        comment_id = request.query_params.get('commentId', None)
+        user_id = request.query_params.get('user_id', None)
+        comment_id = request.query_params.get('comment_id', None)
       
         
         if user_id and comment_id is not None:
@@ -36,7 +36,7 @@ class ReactionView(ViewSet):
                 id = reaction.id
                 reaction.clicked = len(CommentReaction.objects.filter(user_id = user_id, comment_id = comment_id, reaction_id = id)) > 0
                 reaction.count = len(CommentReaction.objects.filter(reaction_id = id, comment_id = comment_id))
-        
+                reaction.save()
         
         serializer = ReactionSerializer(reactions, many = True)
         return Response(serializer.data)
@@ -95,4 +95,4 @@ class ReactionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Reaction
         fields = ('id', 'reaction_name', 'image_url', 'clicked', 'count') 
-        depth = 1     
+        # depth = 1     

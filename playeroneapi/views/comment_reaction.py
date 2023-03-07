@@ -7,6 +7,16 @@ from playeroneapi.models import CommentReaction, Reaction, Comment, User
 
 
 class CommentReactionView(ViewSet):
+  def retrieve(self, request, pk):
+        """Handle GET requests for single game type
+
+        Returns:
+            Response -- JSON serialized game type
+        """
+        comment_reaction = CommentReaction.objects.get(pk=pk)
+        serializer = CommentReactionSerializer(comment_reaction)
+        return Response(serializer.data)
+      
   def list(self, request):
     """GET all comment reactions"""
    
@@ -28,13 +38,17 @@ class CommentReactionView(ViewSet):
         '''handels POST PR requests'''
         comment = Comment.objects.get(pk=request.data['commentId'])
         reaction = Reaction.objects.get(pk=request.data['reactionId'])
-        user = User.objects.get(pk=request.data['userId'])
+        user = User.objects.get(id=request.data['userId'])
+        
         
         comment_reaction = CommentReaction.objects.create(
-          comment_id = comment,
-          reaction_id = reaction,
-          user_id = user
+          comment_id = comment.id,
+          reaction_id = reaction.id,
+          user_id = user.id,
+          
         )
+        # comment_reaction.reaction_image = comment_reaction.reaction_image
+        # comment_reaction.save()
         
         serializer = CommentReactionSerializer(comment_reaction)
         
@@ -54,3 +68,4 @@ class CommentReactionSerializer(serializers.ModelSerializer):
   class Meta:
     model = CommentReaction
     fields = ('id', 'user', 'comment', 'reaction')
+    depth = 1
