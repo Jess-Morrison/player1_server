@@ -4,6 +4,11 @@ from django.db import models
 class Reaction(models.Model):
     reaction_name = models.CharField(max_length=50)
     image_url = models.CharField(max_length=50)
+    
+    def __init__(self, *args, **kwargs):
+        super(Reaction, self).__init__(*args, **kwargs)
+        self.__clicked = False
+        self.__count = 0
 
     @property
     def clicked(self):
